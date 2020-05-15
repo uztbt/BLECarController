@@ -7,8 +7,75 @@
 
 import UIKit
 import SwiftUI
+import CoreBluetooth
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate,
+    CBPeripheralDelegate,
+    CBCentralManagerDelegate
+{
+    // CB Properties
+    private var cbCentralManager: CBCentralManager!
+    private var cbPeripheral: CBPeripheral!
+    private var cbCharacteristic: CBCharacteristic!
+    private var carData: CarData!
+
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        print("CB central manager's state was updated")
+        guard central.state == .poweredOn else {
+            print("CB central manager is powered off")
+            return
+        }
+        print("CB central manager is scanning for", BluetoothPeripheral.serviceUUID)
+        cbCentralManager.scanForPeripherals(withServices: [BluetoothPeripheral.serviceUUID], options: nil)
+    }
+    
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
+
+        print("centralManager  didDiscover", peripheral)
+        self.cbCentralManager.stopScan()
+        // Copy the peripheral instance
+        self.cbPeripheral = peripheral
+        self.cbPeripheral.delegate = self
+        
+        // Connect!
+        self.cbCentralManager.connect(self.cbPeripheral, options: nil)
+    }
+    
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        guard peripheral == self.cbPeripheral else {
+            print("Connected to a different peripheral than the intended one")
+            return
+        }
+        print("Connected to the intended peripheral")
+        carData.carName = peripheral.name!
+        carData.connected = true
+        peripheral.discoverServices([BluetoothPeripheral.serviceUUID])
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        if let services = peripheral.services {
+            for service in services {
+                if service.uuid == BluetoothPeripheral.serviceUUID {
+                    print("The service of BluetoothPeripheral found")
+                    peripheral.discoverCharacteristics([
+                        BluetoothPeripheral.characteristicUUID
+                    ], for: service)
+                    return
+                }
+            }
+        }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        if let characteristics = service.characteristics {
+            for characteristic in characteristics {
+                if characteristic.uuid == BluetoothPeripheral.characteristicUUID {
+                    print("The characteristic found: ", characteristic)
+                    cbCharacteristic = characteristic
+                }
+            }
+        }
+    }
 
     var window: UIWindow?
 
@@ -18,8 +85,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
-        // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
+        print("cbCentralManager set")
+        cbCentralManager = CBCentralManager(delegate: self, queue: nil)
+        carData = CarData{ (command: UInt8) -> Void in
+            self.cbPeripheral.writeValue(Data([command]), for: self.cbCharacteristic, type: .withResponse)
+        }
+
+        // Create the SwifsendCommand: <#(Int) -> Void#>tUI view that provides the window contents.
+        let contentView = ContentView().environmentObject(carData)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
@@ -61,3 +134,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
+
+struct SceneDelegate_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+    }
+}

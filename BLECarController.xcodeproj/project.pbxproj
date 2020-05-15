@@ -14,6 +14,14 @@
 		D608C73824695D92008146A7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D608C73724695D92008146A7 /* Preview Assets.xcassets */; };
 		D608C73B24695D92008146A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D608C73924695D92008146A7 /* LaunchScreen.storyboard */; };
 		D608C74624695D92008146A7 /* BLECarControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D608C74524695D92008146A7 /* BLECarControllerTests.swift */; };
+		D608C751246985F7008146A7 /* ForwardImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D608C750246985F7008146A7 /* ForwardImage.swift */; };
+		D608C75424698859008146A7 /* BackImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D608C75324698859008146A7 /* BackImage.swift */; };
+		D608C75624698885008146A7 /* LeftImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D608C75524698885008146A7 /* LeftImage.swift */; };
+		D608C7582469889F008146A7 /* RightImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D608C7572469889F008146A7 /* RightImage.swift */; };
+		D608C75A246988BC008146A7 /* StopImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D608C759246988BC008146A7 /* StopImage.swift */; };
+		D608C75C24699649008146A7 /* ControlButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D608C75B24699649008146A7 /* ControlButtons.swift */; };
+		D685BA28246AE9D10030216A /* BluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = D685BA27246AE9D10030216A /* BluetoothPeripheral.swift */; };
+		D685BA2A246EF07D0030216A /* CarData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D685BA29246EF07D0030216A /* CarData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +46,14 @@
 		D608C74124695D92008146A7 /* BLECarControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BLECarControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D608C74524695D92008146A7 /* BLECarControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLECarControllerTests.swift; sourceTree = "<group>"; };
 		D608C74724695D92008146A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D608C750246985F7008146A7 /* ForwardImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardImage.swift; sourceTree = "<group>"; };
+		D608C75324698859008146A7 /* BackImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackImage.swift; sourceTree = "<group>"; };
+		D608C75524698885008146A7 /* LeftImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftImage.swift; sourceTree = "<group>"; };
+		D608C7572469889F008146A7 /* RightImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightImage.swift; sourceTree = "<group>"; };
+		D608C759246988BC008146A7 /* StopImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopImage.swift; sourceTree = "<group>"; };
+		D608C75B24699649008146A7 /* ControlButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlButtons.swift; sourceTree = "<group>"; };
+		D685BA27246AE9D10030216A /* BluetoothPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheral.swift; sourceTree = "<group>"; };
+		D685BA29246EF07D0030216A /* CarData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,9 +96,13 @@
 			isa = PBXGroup;
 			children = (
 				D608C72E24695D91008146A7 /* AppDelegate.swift */,
+				D685BA27246AE9D10030216A /* BluetoothPeripheral.swift */,
+				D685BA29246EF07D0030216A /* CarData.swift */,
 				D608C73024695D91008146A7 /* SceneDelegate.swift */,
 				D608C73224695D91008146A7 /* ContentView.swift */,
+				D608C75B24699649008146A7 /* ControlButtons.swift */,
 				D608C73424695D92008146A7 /* Assets.xcassets */,
+				D608C75224698815008146A7 /* ImageView */,
 				D608C73924695D92008146A7 /* LaunchScreen.storyboard */,
 				D608C73C24695D92008146A7 /* Info.plist */,
 				D608C73624695D92008146A7 /* Preview Content */,
@@ -105,6 +125,18 @@
 				D608C74724695D92008146A7 /* Info.plist */,
 			);
 			path = BLECarControllerTests;
+			sourceTree = "<group>";
+		};
+		D608C75224698815008146A7 /* ImageView */ = {
+			isa = PBXGroup;
+			children = (
+				D608C750246985F7008146A7 /* ForwardImage.swift */,
+				D608C75324698859008146A7 /* BackImage.swift */,
+				D608C75524698885008146A7 /* LeftImage.swift */,
+				D608C7572469889F008146A7 /* RightImage.swift */,
+				D608C759246988BC008146A7 /* StopImage.swift */,
+			);
+			path = ImageView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,9 +239,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D608C75C24699649008146A7 /* ControlButtons.swift in Sources */,
+				D685BA2A246EF07D0030216A /* CarData.swift in Sources */,
+				D608C7582469889F008146A7 /* RightImage.swift in Sources */,
+				D608C75624698885008146A7 /* LeftImage.swift in Sources */,
 				D608C72F24695D91008146A7 /* AppDelegate.swift in Sources */,
+				D608C75A246988BC008146A7 /* StopImage.swift in Sources */,
+				D608C751246985F7008146A7 /* ForwardImage.swift in Sources */,
+				D685BA28246AE9D10030216A /* BluetoothPeripheral.swift in Sources */,
 				D608C73124695D91008146A7 /* SceneDelegate.swift in Sources */,
 				D608C73324695D91008146A7 /* ContentView.swift in Sources */,
+				D608C75424698859008146A7 /* BackImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,14 +406,15 @@
 				DEVELOPMENT_TEAM = L7B46RNYJ5;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BLECarController/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.uztbt.BLECarController;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.uztbt.ble-car-controller";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -386,14 +427,15 @@
 				DEVELOPMENT_TEAM = L7B46RNYJ5;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BLECarController/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.uztbt.BLECarController;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.uztbt.ble-car-controller";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
