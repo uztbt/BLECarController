@@ -19,28 +19,74 @@ struct ForwardButton: View {
     }
 }
 
-struct BackwardButton: View {
+struct ForwardRightButton: View {
     var carData: CarData
     var body: some View {
         Button(action: {
             print("Pressed")
             self.carData.changeCommand(command: 2)
         }){
+            RightImage().rotationEffect(Angle(degrees: -45))
+        }
+    }
+}
+
+struct ForwardLeftButton: View {
+    var carData: CarData
+    var body: some View {
+        Button(action: {
+            print("Pressed")
+            self.carData.changeCommand(command: 3)
+        }){
+            LeftImage().rotationEffect(Angle(degrees: 45))
+        }
+    }
+}
+
+struct BackwardButton: View {
+    var carData: CarData
+    var body: some View {
+        Button(action: {
+            print("Pressed")
+            self.carData.changeCommand(command: 4)
+        }){
             BackwardImage()
         }
     }
 }
-struct LeftButton: View {
+
+struct BackwardRightButton: View {
+    var carData: CarData
     var body: some View {
-        Button(action: {print("Pressed")}){
-            LeftImage()
+        Button(action: {
+            print("Pressed")
+            self.carData.changeCommand(command: 5)
+        }){
+            RightImage().rotationEffect(Angle(degrees: 45))
         }
     }
 }
-struct RightButton: View {
+
+struct BackwardLeftButton: View {
+    var carData: CarData
     var body: some View {
-        Button(action: {print("Pressed")}){
-            RightImage()
+        Button(action: {
+            print("Pressed")
+            self.carData.changeCommand(command: 6)
+        }){
+            LeftImage().rotationEffect(Angle(degrees: -45))
+        }
+    }
+}
+
+struct StopButton: View {
+    var carData: CarData
+    var body: some View {
+        Button(action: {
+            print("Pressed")
+            self.carData.changeCommand(command: 0)
+        }){
+            StopImage()
         }
     }
 }
@@ -50,15 +96,18 @@ struct ControlButtons: View {
     var carData: CarData
     
     var body: some View {
-        VStack(spacing: -30.0) {
-            ForwardButton(carData: carData)
-            HStack(spacing: 70.0) {
-                LeftButton()
-                
-                RightButton()
+        VStack {
+            HStack {
+                ForwardLeftButton(carData: carData)
+                ForwardButton(carData: carData)
+                ForwardRightButton(carData: carData)
             }
-            .padding()
-            BackwardButton(carData: carData)
+            StopButton(carData: carData)
+            HStack {
+                BackwardLeftButton(carData: carData)
+                BackwardButton(carData: carData)
+                BackwardRightButton(carData: carData)
+            }
         }
     }
 }

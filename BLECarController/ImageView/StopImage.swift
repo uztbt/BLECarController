@@ -11,8 +11,6 @@ struct StopImage: View {
     var body: some View {
         Image("stop_square")
         .clipShape(Rectangle())
-            .overlay(Rectangle().stroke(Color.white, lineWidth: 4))
-        .shadow(radius: 2)
     }
 }
 
