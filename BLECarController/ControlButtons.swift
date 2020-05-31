@@ -19,26 +19,14 @@ struct ForwardButton: View {
     }
 }
 
-struct ForwardRightButton: View {
+struct RightButton: View {
     var carData: CarData
     var body: some View {
         Button(action: {
             print("Pressed")
             self.carData.changeCommand(command: 2)
         }){
-            RightImage().rotationEffect(Angle(degrees: -45))
-        }
-    }
-}
-
-struct ForwardLeftButton: View {
-    var carData: CarData
-    var body: some View {
-        Button(action: {
-            print("Pressed")
-            self.carData.changeCommand(command: 3)
-        }){
-            LeftImage().rotationEffect(Angle(degrees: 45))
+            RightImage()
         }
     }
 }
@@ -48,33 +36,21 @@ struct BackwardButton: View {
     var body: some View {
         Button(action: {
             print("Pressed")
-            self.carData.changeCommand(command: 4)
+            self.carData.changeCommand(command: 3)
         }){
             BackwardImage()
         }
     }
 }
 
-struct BackwardRightButton: View {
+struct LeftButton: View {
     var carData: CarData
     var body: some View {
         Button(action: {
             print("Pressed")
-            self.carData.changeCommand(command: 5)
+            self.carData.changeCommand(command: 4)
         }){
-            RightImage().rotationEffect(Angle(degrees: 45))
-        }
-    }
-}
-
-struct BackwardLeftButton: View {
-    var carData: CarData
-    var body: some View {
-        Button(action: {
-            print("Pressed")
-            self.carData.changeCommand(command: 6)
-        }){
-            LeftImage().rotationEffect(Angle(degrees: -45))
+            LeftImage()
         }
     }
 }
@@ -97,17 +73,13 @@ struct ControlButtons: View {
     
     var body: some View {
         VStack {
+            ForwardButton(carData: carData)
             HStack {
-                ForwardLeftButton(carData: carData)
-                ForwardButton(carData: carData)
-                ForwardRightButton(carData: carData)
+                LeftButton(carData: carData)
+                StopButton(carData: carData)
+                RightButton(carData: carData)
             }
-            StopButton(carData: carData)
-            HStack {
-                BackwardLeftButton(carData: carData)
-                BackwardButton(carData: carData)
-                BackwardRightButton(carData: carData)
-            }
+            BackwardButton(carData: carData)
         }
     }
 }
