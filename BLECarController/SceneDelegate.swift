@@ -16,7 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate,
     // CB Properties
     private var cbCentralManager: CBCentralManager!
     private var cbPeripheral: CBPeripheral!
-    private var cbCharacteristic: CBCharacteristic!
+    private var cbSteeringCharacteristic: CBCharacteristic!
+    private var cbMotorCharacteristic: CBCharacteristic!
     private var carData: CarData!
 
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -31,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate,
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
 
-        print("centralManager  didDiscover", peripheral)
+        print("centralManager didDiscover ", peripheral)
         self.cbCentralManager.stopScan()
         // Copy the peripheral instance
         self.cbPeripheral = peripheral
@@ -58,7 +59,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate,
                 if service.uuid == BluetoothPeripheral.serviceUUID {
                     print("The service of BluetoothPeripheral found")
                     peripheral.discoverCharacteristics([
-                        BluetoothPeripheral.characteristicUUID
+                        BluetoothPeripheral.steeringCharacteristicUUID,
+                        BluetoothPeripheral.motorCharacteristicUUID
                     ], for: service)
                     return
                 }
@@ -69,9 +71,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate,
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         if let characteristics = service.characteristics {
             for characteristic in characteristics {
-                if characteristic.uuid == BluetoothPeripheral.characteristicUUID {
-                    print("The characteristic found: ", characteristic)
-                    cbCharacteristic = characteristic
+                switch characteristic.uuid {
+                case BluetoothPeripheral.steeringCharacteristicUUID:
+                    print("Steering characteristic found: ", characteristic)
+                    cbSteeringCharacteristic = characteristic
+                case BluetoothPeripheral.motorCharacteristicUUID:
+                    print("Motor characteristic found: ", characteristic)
+                    cbMotorCharacteristic = characteristic
+                default:
+                    continue
                 }
             }
         }
@@ -87,9 +95,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate,
 
         print("cbCentralManager set")
         cbCentralManager = CBCentralManager(delegate: self, queue: nil)
-        carData = CarData{ (command: UInt8) -> Void in
-            self.cbPeripheral.writeValue(Data([command]), for: self.cbCharacteristic, type: .withResponse)
-        }
+        carData = CarData(sendSteeringCommand: { (steering) in
+            print("Send steering " + String(steering))
+            self.cbPeripheral.writeValue(Data([steering]), for: self.cbSteeringCharacteristic, type: .withResponse)
+        }, sendMotorCommand: { (motor) in
+            print("Send Motor " + String(motor))
+            self.cbPeripheral.writeValue(Data([motor]), for: self.cbMotorCharacteristic, type: .withResponse)
+        })
 
         // Create the SwifsendCommand: <#(Int) -> Void#>tUI view that provides the window contents.
         let contentView = ContentView().environmentObject(carData)

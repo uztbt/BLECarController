@@ -8,6 +8,7 @@
 import CoreBluetooth
 
 class BluetoothPeripheral: NSObject {
-    public static let serviceUUID = CBUUID.init(string: "8d73daf8-208b-432d-bb8f-631e11a37a56")
-    public static let characteristicUUID = CBUUID.init(string: "88e7e723-b754-4394-9ef5-a6b121e8dfce")
+    public static let serviceUUID = CBUUID.init(string: "49662679-5858-4a57-8253-3b29f954643a")
+    public static let steeringCharacteristicUUID = CBUUID.init(string: "dbba9389-a24f-49f4-9063-8bc7e479bc35")
+    public static let motorCharacteristicUUID = CBUUID.init(string: "43a5be68-47a6-4bf7-a903-89405a0fc603")
 }

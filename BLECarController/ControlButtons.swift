@@ -12,7 +12,7 @@ struct ForwardButton: View {
     var body: some View {
         Button(action: {
             print("Pressed")
-            self.carData.changeCommand(command: 1)
+            self.carData.changeMotorCommand(command: 1)
         }){
             ForwardImage()
         }
@@ -24,7 +24,7 @@ struct RightButton: View {
     var body: some View {
         Button(action: {
             print("Pressed")
-            self.carData.changeCommand(command: 2)
+            self.carData.changeSteeringCommand(command: 2)
         }){
             RightImage()
         }
@@ -36,7 +36,7 @@ struct BackwardButton: View {
     var body: some View {
         Button(action: {
             print("Pressed")
-            self.carData.changeCommand(command: 3)
+            self.carData.changeMotorCommand(command: 2)
         }){
             BackwardImage()
         }
@@ -48,7 +48,7 @@ struct LeftButton: View {
     var body: some View {
         Button(action: {
             print("Pressed")
-            self.carData.changeCommand(command: 4)
+            self.carData.changeSteeringCommand(command: 1)
         }){
             LeftImage()
         }
@@ -60,7 +60,7 @@ struct StopButton: View {
     var body: some View {
         Button(action: {
             print("Pressed")
-            self.carData.changeCommand(command: 0)
+            self.carData.changeMotorCommand(command: 0)
         }){
             StopImage()
         }
@@ -86,8 +86,12 @@ struct ControlButtons: View {
 
 struct ControlButtons_Previews: PreviewProvider {
     static var previews: some View {
-        ControlButtons(carData: CarData{(command: UInt8) -> Void in
-            print(command)
+        ControlButtons(carData: CarData(
+            sendSteeringCommand: { (steering) in
+            print("Steering: " + String(steering))
+        }, sendMotorCommand: { (motor) in
+            print ("Motor: " + String(motor))
         })
+        )
     }
 }

@@ -10,14 +10,22 @@ import Foundation
 final class CarData: ObservableObject {
     @Published var carName = "-"
     @Published var connected = false
-    @Published var command = 0
-    var sendCommand: (UInt8) -> Void
+    @Published var steeringCommand = 0
+    @Published var motorCommand = 0
     
-    init(sendCommand: @escaping (UInt8) -> Void) {
-        self.sendCommand = sendCommand
+    var sendSteeringCommand: (UInt8) -> Void
+    var sendMotorCommand: (UInt8) -> Void
+    
+    init(sendSteeringCommand: @escaping (UInt8) -> Void, sendMotorCommand: @escaping (UInt8) -> Void) {
+        self.sendSteeringCommand = sendSteeringCommand
+        self.sendMotorCommand = sendMotorCommand
     }
     
-    func changeCommand(command: UInt8) {
-        sendCommand(command)
+    func changeSteeringCommand(command: UInt8) {
+        sendSteeringCommand(command)
+    }
+    
+    func changeMotorCommand(command: UInt8) {
+        sendMotorCommand(command)
     }
 }

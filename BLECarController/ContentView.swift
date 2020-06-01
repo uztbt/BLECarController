@@ -42,8 +42,12 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(CarData{(command: UInt8) -> Void in
-            print(command)
+        ContentView().environmentObject(CarData(
+            sendSteeringCommand: { (steering) in
+            print("Steering: " + String(steering))
+        }, sendMotorCommand: { (motor) in
+            print ("Motor: " + String(motor))
         })
+        )
     }
 }
